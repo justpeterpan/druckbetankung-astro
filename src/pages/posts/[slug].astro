@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro'
+// TODO env handling 
+// const { PUBLIC_CMS_API } = import.meta.env;
+
+export async function getStaticPaths() {
+  const response = await fetch(
+    `${import.meta.env.PUBLIC_CMS_API}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+        { 
+          posts {
+            slug
+            title
+            content {
+                text
+            }
+          }
+        }
+      `,
+      }),
+    }
+  )
+  const posts = await response.json()
+  const paths = posts.data.posts.map(post => ({
+    params: {
+      slug: post.slug,
+    },
+    props: {
+      post,
+    },
+  }))
+  return paths
+}
+const post = Astro.props.post
+---
+
+<Layout>
+    <h1>{post.title}</h1>
+    <p>{post.content.text}</p>
+</Layout>

@@ -13,5 +13,9 @@
     "@astrojs/vue": "^0.1.3",
     "astro": "^1.0.0-beta.27",
     "vue": "^3.2.33"
+  },
+  "dependencies": {
+    "graphql": "^16.5.0",
+    "graphql-request": "^4.2.0"
   }
 }
