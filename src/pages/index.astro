@@ -23,18 +23,14 @@ const response = await fetch(
     }),
   }
 )
+
 const posts = await response.json()
 ---
 <Layout title="Hello Astro">
-	<div>
-	
-	</div>
 	<main>
 		<h1><span class="text-gradient">Astro</span> Blog</h1>
 		<ul role="list" class="link-card-grid">
-			{posts.data.posts.map(product => (
-      			<Card href={`/posts/${product.slug}`} title={`${product.title}`} body={`${product.date}`}/>
-    		))}
+			{posts.data.posts.map(product => ( <Card href={`/posts/${product.slug}`} title={`${product.title}`} body={`${product.date}`}/>))}
 		</ul>
 	</main>
 </Layout>
